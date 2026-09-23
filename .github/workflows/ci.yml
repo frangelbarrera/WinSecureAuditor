@@ -1,6 +1,5 @@
 name: CI
 
-```yaml
 permissions:
   contents: read
   

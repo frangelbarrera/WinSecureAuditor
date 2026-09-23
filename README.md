@@ -49,7 +49,7 @@ A Python-based **Security Configuration Assessment (SCA)** tool designed to chec
 *Example of the generated HTML report displaying compliance results, pass/fail counts, and detailed rule information.*
 
 ### Vulnerability Description
-![Vulnerability Description](docs/images/vulnerability%20description.jpg)
+![Vulnerability-Description](docs/images/vulnerability%20description.jpg)
 *Detailed view of vulnerability descriptions and remediation guidance in the report.*
 
 ## Key Features

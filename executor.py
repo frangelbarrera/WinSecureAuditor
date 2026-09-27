@@ -1,6 +1,7 @@
 # File: executor.py
 
 import os
+import shlex
 import subprocess
 import sys
 from typing import NamedTuple
@@ -21,7 +22,11 @@ def execute_subrule(sub_rule: str) -> ExecResult:
     - f: -> file check
     - cmd: -> run command
     """
-    sub_rule = sub_rule.strip().lower()
+    sub_rule = sub_rule.strip()
+    prefix, separator, rule_body = sub_rule.partition(":")
+    if separator:
+        # Normalize only the rule prefix; registry paths and file paths may be case-sensitive.
+        sub_rule = f"{prefix.lower()}:{rule_body.strip()}"
 
     if sub_rule.startswith("r:"):
         if sys.platform.startswith("win"):
@@ -116,7 +121,20 @@ def run_command(sub_rule: str) -> ExecResult:
     """
     cmd_str = sub_rule[4:].strip()
     try:
-        output = subprocess.check_output(cmd_str, shell=True, universal_newlines=True)
-        return ExecResult(sub_rule, output.strip(), "")
+        # Execute tokenized commands without a shell and cap execution time.
+        result = subprocess.run(
+            shlex.split(cmd_str),
+            shell=False,
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+        if result.returncode != 0:
+            return ExecResult(sub_rule, "", f"Command error: {result.stderr.strip()}")
+        return ExecResult(sub_rule, result.stdout.strip(), "")
     except subprocess.CalledProcessError as e:
+        return ExecResult(sub_rule, "", f"Command error: {e}")
+    except subprocess.TimeoutExpired:
+        return ExecResult(sub_rule, "", "Command error: timed out after 15 seconds")
+    except OSError as e:
         return ExecResult(sub_rule, "", f"Command error: {e}")

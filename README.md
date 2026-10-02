@@ -134,3 +134,7 @@ See the [LICENSE](./LICENSE) file for full license details.
 
 
 
+
+## CIS Benchmark scope
+
+See [docs/cis-benchmark-scope.md](docs/cis-benchmark-scope.md).

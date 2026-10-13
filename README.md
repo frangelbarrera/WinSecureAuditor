@@ -11,13 +11,13 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square)](https://www.python.org/downloads/)
 [![Tests](https://img.shields.io/badge/tests-pytest%20%7C%20ubuntu%20%2B%20windows-brightgreen?style=flat-square)](tests/)
 
-WinSecureAuditor is a comprehensive security auditing tool designed to evaluate Windows systems against the Center for Internet Security (CIS) Benchmarks. This open-source application provides organizations and security professionals with automated assessment capabilities to ensure compliance with industry-standard security configurations.
+WinSecureAuditor is a rule-based Windows security configuration assessment tool using CIS-derived policies. It generates per-rule reports to help administrators review settings; results require verification against the applicable benchmark and do not constitute certification.
 
-The tool performs automated checks against CIS-recommended security settings, including registry configurations, file permissions, and system policies. It supports multiple Windows versions (Windows 10, 11, Server 2016, 2019, 2022) and provides detailed reporting to help identify and remediate security gaps.
+The tool performs automated checks against CIS-derived security settings, including registry configurations, file presence, and system policies. The bundled rule profiles cover Windows 10 Enterprise and Windows Server 2012 R2, 2016, and 2019, plus a general Windows audit set. Validate the target edition and build against the rule evidence before interpreting results.
 
 ## Key Benefits
 
-- **Automated Compliance Assessment**: Evaluates systems against CIS Benchmarks with over 1000 individual checks
+- **Rule-Based Assessment**: Loads the bundled Windows profiles and reports per-rule results with remediation guidance
 - **Comprehensive Reporting**: Generates HTML and JSON reports with remediation guidance
 - **Multi-Interface Support**: Available as both command-line tool and graphical application
 - **Extensible Architecture**: Rule-based system allows for custom security checks
@@ -26,17 +26,17 @@ The tool performs automated checks against CIS-recommended security settings, in
 ## What Makes It Effective
 
 WinSecureAuditor addresses critical security assessment needs by:
-- Supporting the latest CIS Benchmark versions for Windows systems
+- Including CIS-derived Windows rule sets; record the applicable benchmark revision and Windows edition for each assessment (see [CIS Benchmark scope](docs/cis-benchmark-scope.md))
 - Providing clear pass/fail results with detailed explanations
 - Offering weighted scoring based on security severity
 - Enabling both automated scanning and manual verification workflows
 - Maintaining compatibility with enterprise security policies
 
-This tool is essential for organizations implementing CIS Benchmark recommendations and maintaining robust security postures in Windows environments.
+The tool can support reviews of Windows settings against the included profiles; it does not replace a verified benchmark assessment or independent review.
 
 ## Overview
 
-A Python-based **Security Configuration Assessment (SCA)** tool designed to check Microsoft Windows systems against **CIS Benchmarks**. It parses `.yml` rule files (with `policy`, `requirements`, and `checks`), executes registry or file-based checks, and generates **detailed** HTML/JSON reports showing pass/fail results and compliance information.
+A Python-based **Security Configuration Assessment (SCA)** tool for Microsoft Windows. It parses `.yml` rule files (with `policy`, `requirements`, and `checks`), executes registry or file-based checks, and generates HTML/JSON reports with per-rule results and associated metadata.
 
 ## Screenshots
 
